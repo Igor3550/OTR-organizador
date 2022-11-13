@@ -1,6 +1,6 @@
+import { QueryResult } from 'pg';
 import { connection } from '../database/db.js'
 import { TaskEntity, Task } from '../protocols/Task.js'
-import { QueryResult } from 'pg';
  
 async function findAllTasks (): Promise<QueryResult<TaskEntity>> {
 
