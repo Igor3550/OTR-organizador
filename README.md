@@ -3,6 +3,7 @@ Uma POC API Backend simples da (OTR) Organizador de tarefas da republica, usando
 <h1>Configurar o banco</h1>
 <p>1 - Criar um banco com nome 'otr';</p>
 <p>2 - Usar o arquivo 'dump.sql' para criar as tabelas;</p>
+<p>3 - Criar um .env com base no arquivo .env.example;</p>
 <hr>
 <h1>Rotas</h1>
 <h2>Rotas de users</h2>
