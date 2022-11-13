@@ -1,10 +1,21 @@
 import { Request, Response } from 'express';
 import { Task } from '../protocols/Task.js';
-import { getAllTasks, insertUniqueTask, updateService } from '../services/taskService.js'
+import { getAllTasks, getCountTasks, insertUniqueTask, updateService, deleteService } from '../services/taskService.js'
 
 async function listTasks (req: Request, res: Response) {
   try {
     const tasks = await getAllTasks();
+    return res.send(tasks.rows);
+  } catch (error) {
+    console.log(error)
+    return res.sendStatus(500)
+  }
+}
+
+async function getCountUsersTasks (req: Request, res: Response) {
+
+  try {
+    const tasks = await getCountTasks();
     return res.send(tasks.rows);
   } catch (error) {
     console.log(error)
@@ -38,8 +49,24 @@ async function updateTask(req: Request, res: Response) {
   }
 }
 
+async function deleteTask(req: Request, res: Response) {
+  const taskId = Number(req.params.id)
+
+  try {
+    await deleteService(taskId);
+    return res.send({
+      message: `Task id:${taskId} deleted!`
+    })
+  } catch (error) {
+    console.log(error)
+    return res.sendStatus(500)
+  }
+}
+
 export {
   listTasks,
+  getCountUsersTasks,
   insertTask,
-  updateTask
+  updateTask,
+  deleteTask
 }

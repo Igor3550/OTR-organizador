@@ -1,11 +1,13 @@
 import express from 'express'
-import { listTasks, insertTask, updateTask } from '../controllers/taskController.js';
+import { listTasks, getCountUsersTasks, insertTask, updateTask, deleteTask } from '../controllers/taskController.js';
 import { taskInputVerify } from '../middlewares/taskMiddleware.js';
 
 const router = express.Router()
 
 router.get('/tasks', listTasks);
-router.post('/tasks', taskInputVerify, insertTask)
-router.put('/tasks/:id', updateTask)
+router.get('/tasks/count/', getCountUsersTasks);
+router.post('/tasks', taskInputVerify, insertTask);
+router.put('/tasks/:id', updateTask);
+router.delete('/tasks/:id', deleteTask);
 
 export default router;

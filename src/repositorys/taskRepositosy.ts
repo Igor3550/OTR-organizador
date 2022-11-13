@@ -19,11 +19,17 @@ async function findAllTasks (): Promise<QueryResult<TaskEntity>> {
 
 }
 
-async function findTaskById (taskId: number): Promise<QueryResult<TaskEntity>> {
+async function countTasksOfUsers (): Promise<QueryResult<TaskEntity>> {
 
   const tasks = await connection.query(`
-    SELECT * FROM tasks WHERE id = $1;
-  `, [taskId])
+  SELECT 
+    users.id AS "userId",
+    users.name,
+    COUNT(tasks.id) AS tasks_count
+  FROM users
+  LEFT JOIN tasks ON tasks.responsable = users.id
+  GROUP BY users.id;
+  `)
   return tasks;
 
 }
@@ -48,6 +54,8 @@ async function deleteTask (taskId: number) {
 
 export {
   findAllTasks,
+  countTasksOfUsers,
   insertTask,
-  updateTask
+  updateTask,
+  deleteTask
 }
